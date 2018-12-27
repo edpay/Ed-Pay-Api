@@ -21,13 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println("WEB security Config Called");
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/context/**").authenticated().anyRequest().permitAll();
         //http.authorizeRequests().antMatchers("/context/register").permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.addFilterBefore(new LoginFilter(), BasicAuthenticationFilter.class);
         http.logout().logoutSuccessUrl("/login");
-        
     }
 }
